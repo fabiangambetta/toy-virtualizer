@@ -9,21 +9,46 @@
     const items = Array.from({ length: 100 }, (_, index) => index + 1);
     const { totalSize } = initVirtualizer({items, itemHeight: 30});
     console.log(totalSize);
+
+    const scrollableDiv = document.getElementById("parent");
+    const scrollAmount = document.getElementById("scrollAmount");
+    const scrollHeigth = document.getElementById("scrollHeight");
+    const clientHeigth = document.getElementById("clientHeight");
+
+    scrollableDiv.addEventListener("scroll", function () {
+            scrollAmount.textContent = scrollableDiv.scrollTop;
+            scrollHeigth.textContent = scrollableDiv.scrollHeight;
+            clientHeigth.textContent = scrollableDiv.clientHeight;
+    });
+
 </script>
 <style>
     .parent-container {
         width: 200px;
         height: 400px;
+        border: 2px solid black;
+        overflow-y: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .child-container {
+        height: 3000px;
+        border: 1px solid red;
+        width: 180px;
     }
 </style>
 </head>
 <body>
     <div class="page">
-        <div class="parent-container">
+        <div id="parent" class="parent-container">
             <div class="child-container">
 
             </div>
         </div>
     </div>
+<p>Scroll Top: <span id="scrollAmount">0</span> px</p>
+<p>Scroll Height: <span id="scrollHeight">0</span> px</p>
+<p>Client Height: <span id="clientHeight">0</span> px</p>
 </body>
 </html>

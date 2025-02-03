@@ -9,4 +9,8 @@ class Container {
         this._width = width;
 
     }
+
+    getItemsInRange(start, end) {
+        // PENDING IMPLEMENTATION
+    }
 }
