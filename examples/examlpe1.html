@@ -4,8 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <script type="module" src="../core/structure/initializer.js"></script>
+<script type="module" src="../core/structure/item.js"></script>
 <script type="module">
     import { initVirtualizer } from '../core/structure/initializer.js';
+    import { Item } from '../core/structure/item.js';
     const items = Array.from({ length: 100 }, (_, index) => index + 1);
     const { totalSize } = initVirtualizer({items, itemHeight: 30});
     console.log(totalSize);
@@ -21,6 +23,24 @@
             clientHeigth.textContent = scrollableDiv.clientHeight;
     });
 
+    const items2 = Array.from({ length: 100 }, (_, index) => new Item(index, 180, 30));
+
+    const contenedor = document.getElementById('parent');
+
+    // Iteramos sobre el array y por cada instancia creamos e insertamos un div en el contenedor
+    items2.forEach(item => {
+      // Creamos un nuevo elemento div
+      const nuevoDiv = document.createElement('div');
+      // Asignamos contenido al div, por ejemplo, el índice del item
+      nuevoDiv.textContent = `Item ${item.index}`;
+      nuevoDiv.style.width = `${item.width}px`
+        nuevoDiv.style.height = `${item.height}px`
+      // Insertamos el div en el contenedor
+      contenedor.appendChild(nuevoDiv);
+      // Opcional: asignamos el nodo creado a la propiedad _node del item
+      item.node = nuevoDiv;
+    });
+
 </script>
 <style>
     .parent-container {
@@ -28,23 +48,12 @@
         height: 400px;
         border: 2px solid black;
         overflow-y: auto;
-        display: flex;
-        justify-content: center;
-    }
-
-    .child-container {
-        height: 3000px;
-        border: 1px solid red;
-        width: 180px;
     }
 </style>
 </head>
 <body>
     <div class="page">
         <div id="parent" class="parent-container">
-            <div class="child-container">
-
-            </div>
         </div>
     </div>
 <p>Scroll Top: <span id="scrollAmount">0</span> px</p>
